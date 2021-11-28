@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+</body>
+
+<script>
+
+    async function getContent(){
+        try{
+            const response = await fetch('http://localhost:3001/veiculos')
+            // console.log(response);
+            const data =await  response.json()
+           show(data)
+        }catch(error){
+            console.log("ERROU");
+        }
+    }
+    getContent()
+
+    function show(veiculos){
+        let output = ''
+        for(let veiculo of veiculos){
+            output += `<li>${veiculo.veiculo}</li>`
+        }
+        document.querySelector('body').innerHTML = output
+    }
+
+</script>
+</html>
