@@ -1,19 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const VeiculoController = require('../controllers/VeiculoController')
-//USUARIO
-router.get("/", VeiculoController.findAll)
-router.get("/find", VeiculoController.findByBody)
-router.get("/estoque", VeiculoController.veiculosNVendidos)
-router.get("/fabricante", VeiculoController.veiculosPorFabricante)
-router.get("/:id", VeiculoController.findById)
-router.post("/", VeiculoController.post)
-router.put("/:id", VeiculoController.put)
-router.delete("/delete/:id", VeiculoController.delete)
 
+router.get("/", VeiculoController.findAll) //http://localhost:3001/veiculos Retorna todos os veiculos cadastrados
+router.get("/find", VeiculoController.findByBody)//http://localhost:3001/veiculos passar a variavel de pesquisa pelo corpo da requisição com nome "veiculo"
+router.get("/estoque", VeiculoController.veiculosNVendidos)//http://localhost:3001/veiculos/estoque Retorna a quantidade de veiculos não vendidos
+router.get("/fabricante", VeiculoController.veiculosPorFabricante)//http://localhost:3001/veiculos/fabricante Retorna todos dos veiculos de um fabricante
+router.get("/:id", VeiculoController.findById)//http://localhost:3001/veiculos/id Retorna o veiculo que contém o id que foi passado no parametro
+router.post("/", VeiculoController.post)//http://localhost:3001/veiculos Cria um novo veiculo
+router.put("/:id", VeiculoController.put)//http://localhost:3001/veiculos/id Edita as informações do veiculo que contem o id passado no parametro com alteração no "body"
+router.delete("/delete/:id", VeiculoController.delete)//http://localhost:3001/veiculos/deletar/id Deleta o veiculo que contém o id passado no paramentro
 
-
-
-router.get('/',(req, res) => { return res.redirect('/veiculos')})
 
 module.exports = router; 
