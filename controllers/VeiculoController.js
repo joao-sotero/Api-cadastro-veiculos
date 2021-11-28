@@ -27,20 +27,6 @@ const VmController = {
         })
         return res.json({ message: "Veiculo atualizado" })
     },
-    patch: async (req, res) => {
-        const { id } = req.params
-        const { veiculo, marca_id, ano, descricao, vendido } = req.body
-        console.log(veiculo, marca_id, ano, descricao, vendido, id);
-
-        var dataCompleta = new Date();
-
-        await Veiculo.update({
-            veiculo, marca_id, ano, descricao, vendido, updateAt: dataCompleta
-        }, {
-            where: { id }
-        })
-        return res.json({ message: "Veiculo atualizado" })
-    },
     findAll: async (req, res) => {
         let veiculos = await Veiculo.findAll({})
         return res.json(veiculos)
@@ -48,10 +34,15 @@ const VmController = {
     findById: async (req, res) => {
         const { id } = req.params
         let veiculos = await Veiculo.findAll({ where: { id } })
+console.log("to aq");
+        return res.json(veiculos)
+    },
+    findByBody: async (req, res) => {
+        const {veiculo} = req.body
+        let veiculos = await Veiculo.findAll({ where: { veiculo } })
 
         return res.json(veiculos)
     },
-
     delete: async (req, res) => {
         const { id } = req.params
 
