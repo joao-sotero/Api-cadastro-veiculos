@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvaSchedule</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/signin.css">
+</head>
+<nav class="navbar navbar-inverse bg-light">
+  <div class="container">
+    <span class="ava">AvaSchedule</span>
+      <img src="/images/novo.iix" alt="logo" width="160" height="44">
+  </div>
+</nav>
+<div style="margin-left: 40px;">
+      <a href="/logado/vm/listing" class="btn btn-outline-danger btn-sm">
+        <img src="/images/icons/voltar.svg" alt="voltar" width="40" height="44">
+      </a>
+      <a href="/logado/selecionar" class="btn btn-outline-danger btn-sm">
+        <img src="/images/icons/home.svg" alt="home" width="40" height="44">
+      </a>
+</div>
+<body class="cinza">
+  <main>
+    <section class="text-center">
+      <h1>Editar VM</h1>  
+      <p style="color: red;"><b>*BOTÕES</b></p>
+      <p><b style="color: blue;">Azul:</b>Ligado <b style="color: gray;">Cinza:</b>Desligado</p>
+      <form class="container" action="/logado/vm/editar/<%= vm[0].id %>?_method=PUT" method="POST">
+        <div class="row teste">
+          <div class="input-group flex-nowrap ">
+            <span class="input-group-text"><b><abbr title="Cliente dono da VM">Cliente*:</abbr></b></span>
+            <select name="cliente_id" class="form-control form-select" required>
+              <option value="<%= vm[0].cliente_id%>">
+                <%= vm[0].cliente.nome %>
+              </option>
+              <% for( let cliente of clientes) { %>
+                <option value="<%= cliente.id %>">
+                  <%= cliente.nome %>
+                </option>
+                <% } %>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Nome do servidor"> Computer Name </abbr></b></label>
+            <input type="text" name="computer_name" class="form-control" value="<%= vm[0].computer_name %>" >
+            <!-- <input class="form-control" type="hidden" name="computer_name_old" value="<%=// vm[0].computer_name %>"> -->
+          </div>
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Nome da VM como está cadastrado na Azure">Vm Azure* </abbr></b></label>
+            <input class="form-control" type="hidden" name="vm_azure_old" value="<%= vm[0].vm_azure %>" >
+            <input class="form-control" type="text" name="vm_azure" value="<%= vm[0].vm_azure %>" required>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="IP da VM.">IP*</abbr></b></label>
+            <input class="form-control" type="text" name="ip" value="<%= vm[0].ip %>" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Nome do AutomationAccount que será usado (definido na implementação).">Automation*</abbr></b></label>
+            <input class="form-control" type="text" name="automation" value="<%= vm[0].automation %>" required>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Qual a funcionalidade da VM (opcional).">Functionality</abbr></b></label>
+            <input class="form-control" type="text" name="functionality" value="<%= vm[0].functionality %>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Campo para comentário curto (opcional)."> Request </abbr></b></label>
+            <input class="form-control" type="text" name="request" value="<%= vm[0].request %>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label"><b><abbr title="Sistema Operacional ">System Operation*</abbr></b></label>
+            <select name="system_operation" id="appearance-select" class="form-select" required>
+              <% if(vm[0].system_operation=="WIN" ){ %>
+                <option value="<%= vm[0].system_operation %>">WINDOWS</option>
+                <option value="LNX">LINUX</option>
+                <% }else{ %>
+                  <option value="<%= vm[0].system_operation %>">LINUX</option>
+                  <option value="WIN">WINDOWS</option>
+                  <% } %>
+            </select>
+          </div>
+
+          <div class="col-md-3 env">
+            <label class="form-label"><b><abbr title="Ambiente da VM ">Environment*</abbr></b></label>
+            <select class="form-select" name="environment" required>
+              <% if(vm[0].environment=="PRD" ){ %>
+                <option value="<%= vm[0].environment %>">PRD</option>
+                <option value="DEV">DEV</option>
+                <option value="QAS">QAS</option>
+                <option value="HML">HML</option>
+                <% }else if(vm[0].environment=="DEV" ){ %>
+                  <option value="<%= vm[0].environment %>">DEV</option>
+                  <option value="PRD">PRD</option>
+                  <option value="QAS">QAS</option>
+                  <option value="HML">HML</option>
+                  <% }else if(vm[0].environment=="QAS" ){ %>
+                    <option value="PRD">PRD</option>
+                    <option value="DEV">DEV</option>
+                    <option value="HML">HML</option>
+                    <% }else if(vm[0].environment=="HML" ){%>
+                      <option value="PRD">PRD</option>
+                      <option value="DEV">DEV</option>
+                      <option value="QAS">QAS</option>
+                      <% } %>
+            </select>
+          </div>
+          <div class="col-md-2 sbd">
+            <label class="form-label"><b><abbr title="Quando selecionado, não será possivel escolher um START e STOP MODE da VM 
+              e o horário de funcionamento fica sob demanda do cliente">Sob Demanda*</abbr></b></label>
+            <div class=" form-check form-switch">
+              <% if(vm[0].start_mode=="Sob_Demanda" && vm[0].stop_mode=="Sob_Demanda" ){ %>
+                <input class="form-check-input" type="checkbox" name="onSobDemanda" id="flexSwitchCheckChecked" checked>
+                <% }else{ %>
+                  <input class="form-check-input" type="checkbox" name="onSobDemanda" id="flexSwitchCheckChecked">
+                  <% } %>
+                    <label class="form-check-label" for="flexSwitchCheckChecked"> VM Sob Demanda</label>
+            </div>
+          </div>
+          <div class=" col-md-2">
+            <label class=" form-label"><b><abbr title="Selecione o modo de start">Start Mode*</abbr></b></label>
+            <select name="start_mode" class=" form-select">
+              <option value="<%= vm[0].start_mode %>">
+                <%= vm[0].start_mode %>
+              </option>
+              <option value="None"> None</option>
+              <option value="Automation">Automation</option>
+              <!-- <option value="Sob_Demanda">Sob_Demanda</option> -->
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label"><b><abbr title="Selecione o modo de stop ">Stop Mode*</abbr></b></label>
+            <select name="stop_mode" class="form-select">
+              <option value="<%= vm[0].stop_mode %>">
+                <%= vm[0].stop_mode %>
+              </option>
+              <option value="None"> None</option>
+              <option value="Automation">Automation</option>
+              <!-- <option value="Sob_Demanda">Sob_Demanda</option> -->
+              <option value="AutoShutdown">AutoShutdown</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <br>
+            <br>
+            <h4><b>START:</b></h4>
+            <h4><b>STOP:</b></h4>
+          </div>
+
+          <% if(sunday=="O" ){ %>
+            <div class="col-md-1 tho">
+              <label class="form-label"><b> Sunday* </b></label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="onSunday" id="flexSwitchCheckChecked">
+                <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+              </div>
+              <input class="form-control" type="time" name="sunday1" value="<%= sunday %>">
+              <input class="form-control" type="time" name="sunday2" value="<%= sunday %>">
+            </div>
+            <% } %>
+              <% if(sunday.length> 1){ %>
+                <div class="col-md-1 tho">
+                  <label class="form-label"><b> Sunday* </b></label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="onSunday" id="flexSwitchCheckChecked" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                  </div>
+                  <input class="form-control" type="time" name="sunday1" value="<%= sunday[0] %>">
+                  <input class="form-control" type="time" name="sunday2" value="<%= sunday[1] %>">
+                </div>
+                <% } %>
+
+                  <% if(monday=="O" ){ %>
+                    <div class="col-md-1 tho">
+                      <label class="form-label"><b> Monday* </b></label>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="onMonday" id="flexSwitchCheckChecked">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                      </div>
+                      <input class="form-control" type="time" name="monday1" value="<%= monday %>">
+                      <input class="form-control" type="time" name="monday2" value="<%= monday %>">
+                    </div>
+                    <% } %>
+                      <% if(monday.length> 1){ %>
+                        <div class="col-md-1 tho">
+                          <label class="form-label"><b> Monday* </b></label>
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="onMonday" id="flexSwitchCheckChecked"
+                              checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                          </div>
+                          <input class="form-control" type="time" name="monday1" value="<%= monday[0] %>">
+                          <input class="form-control" type="time" name="monday2" value="<%= monday[1] %>">
+                        </div>
+                        <% } %>
+
+                          <% if(tuesday=="O" ){ %>
+                            <div class="col-md-1 tho">
+                              <label class="form-label"><b> Tuesday* </b></label>
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="onTuesday"
+                                  id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                              </div>
+                              <input class="form-control" type="time" name="tuesday1" value="<%= tuesday %>">
+                              <input class="form-control" type="time" name="tuesday2" value="<%= tuesday %>">
+                            </div>
+                            <% } %>
+                              <% if(tuesday.length> 1){ %>
+                                <div class="col-md-1 tho">
+                                  <label class="form-label"><b> Tuesday* </b></label>
+                                  <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="onTuesday"
+                                      id="flexSwitchCheckChecked" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                  </div>
+                                  <input class="form-control" type="time" name="tuesday1" value="<%= tuesday[0] %>">
+                                  <input class="form-control" type="time" name="tuesday2" value="<%= tuesday[1] %>">
+                                </div>
+                                <% } %>
+
+
+                                  <% if(wednesday==="O" ){ %>
+                                    <div class="col-md-1 tho">
+                                      <label class="form-label"><b> Wednesday* </b></label>
+                                      <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="onWednesday"
+                                          id="flexSwitchCheckChecked">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                      </div>
+                                      <input class="form-control" type="time" name="wednesday1"
+                                        value="<%= wednesday %>">
+                                      <input class="form-control" type="time" name="wednesday2"
+                                        value="<%= wednesday %>">
+                                    </div>
+                                    <% } %>
+                                      <% if(wednesday.length> 1){ %>
+                                        <div class="col-md-1 tho">
+                                          <label class="form-label"><b> Wednesday* </b></label>
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" name="onWednesday"
+                                              id="flexSwitchCheckChecked" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                          </div>
+                                          <input class="form-control" type="time" name="wednesday1"
+                                            value="<%= wednesday[0] %>">
+                                          <input class="form-control" type="time" name="wednesday2"
+                                            value="<%= wednesday[1] %>">
+                                        </div>
+                                        <% } %>
+
+                                          <% if(thursday==="O" ){ %>
+                                            <div class="col-md-1 tho">
+                                              <label class="form-label"><b>Thursday* </b></label>
+                                              <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" name="onThursday"
+                                                  id="flexSwitchCheckChecked">
+                                                <label class="form-check-label"
+                                                  for="flexSwitchCheckChecked">OFF/ON</label>
+                                              </div>
+                                              <input class="form-control" type="time" name="thursday1"
+                                                value="<%= thursday %>">
+                                              <input class="form-control" type="time" name="thursday2"
+                                                value="<%= thursday %>">
+                                            </div>
+                                            <% } %>
+                                              <% if(thursday.length> 1){ %>
+                                                <div class="col-md-1 tho">
+                                                  <label class="form-label"><b>Thursday* </b></label>
+                                                  <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" name="onThursday"
+                                                      id="flexSwitchCheckChecked" checked>
+                                                    <label class="form-check-label"
+                                                      for="flexSwitchCheckChecked">OFF/ON</label>
+                                                  </div>
+                                                  <input class="form-control" type="time" name="thursday1"
+                                                    value="<%= thursday[0] %>">
+                                                  <input class="form-control" type="time" name="thursday2"
+                                                    value="<%= thursday[1] %>">
+                                                </div>
+                                                <% }%>
+
+  
+                                                  <% if(friday === "O" ){ %>
+                                                    <div class="col-md-1 tho">
+                                                      <label class="form-label"><b> Friday* </b></label>
+                                                      <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" name="onFriday" id="flexSwitchCheckChecked" >
+                                                        <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                                      </div>
+                                                      <input class="form-control" type="time" name="friday1"
+                                                        value="<%= friday %>">
+                                                      <input class="form-control" type="time" name="friday2"
+                                                        value="<%= friday%>">
+                                                    </div>
+                                                    <% } %>
+                                                      <% if(friday.length > 1){ %>
+                                                        <div class="col-md-1 tho">
+                                                          <label class="form-label"><b> Friday* </b></label>
+                                                          <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" name="onFriday" id="flexSwitchCheckChecked" checked>
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                                          </div>
+                                                          <input class="form-control" type="time" name="friday1"
+                                                            value="<%= friday[0] %>">
+                                                          <input class="form-control" type="time" name="friday2"
+                                                            value="<%= friday[1] %>">
+                                                        </div>
+                                                        <% } %>
+
+                                                            <% if(saturday === "O"){ %> 
+                                                            <div class="col-md-1 tho">
+                                                              <label class="form-label"><b> Saturday* </b></label>
+                                                              <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" name="onSaturday" id="flexSwitchCheckChecked" >
+                                                                <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                                              </div>
+                                                              <input class="form-control" type="time" name="saturday1"
+                                                                value="<%= saturday %>">
+                                                              <input class="form-control" type="time" name="saturday2"
+                                                                value="<%= saturday %>">
+                                                            </div>
+                                                            <% } %>
+                                                          <% if(saturday.length> 1 ){ %>
+                                                            <div class="col-md-1 tho">
+                                                              <label class="form-label"><b> Saturday* </b></label>
+                                                              <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" name="onSaturday" id="flexSwitchCheckChecked" checked>
+                                                                <label class="form-check-label" for="flexSwitchCheckChecked">OFF/ON</label>
+                                                              </div>
+                                                              <input class="form-control" type="time" name="saturday1"
+                                                                value="<%= saturday[0] %>">
+                                                              <input class="form-control" type="time" name="saturday2"
+                                                                value="<%= saturday[1] %>">
+                                                            </div>
+                                                            <% } %>
+                                                              
+
+                                                                <div class="d-grid teste borda">
+                                                                  <button class="btn-warning btn-lg" type="submit"
+                                                                    style="margin: 3rem;"
+                                                                    onclick="return confirm('Deseja criar esse registro ?')">Alterar</button>
+                                                                </div>
+
+        </div>
+      </form>
+
+      <form class="btn-delete" action="/logado/vm/delete/<%= vm[0].id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn-danger btn-lg"
+          onclick="return confirm('Deseja excluir esse registro ?')">Deletar</button>
+      </form>
+
+    </section>
+  </main>
+</body>
+
+</html>

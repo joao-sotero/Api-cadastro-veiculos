@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvaSchedule</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/signin.css">
+  <link rel="https://fonts-googleapis.com/css?family=Aref+Rugaa|PT+Mono" rel="stylesheet">
+</head>
+
+<nav class="navbar navbar-inverse bg-light">
+  <div class="container">
+    <span class="ava">AvaSchedule</span>
+   <img src="/images/novo.iix" alt="logo" width="160" height="44">
+  </div>
+</nav>
+<div class="btn  btn-sm">
+<a href="/logout" ><img src="/images/icons/logout.svg" alt="logout" width="160" height="44"></a>
+</div>
+<body class="cinza">
+  <main>
+    <section class="container">
+    
+      <div>
+        <img src="/images/logo.svg" class="rounded mx-auto d-block test" alt="imagem">
+      </div>
+      <div class="text-center">
+        <button type="button" id="btVm" class="btn  btn-warning btn-lg">VM</button>
+        <% if(logado=="S" ){ %>
+          <a href="/logado/cliente/listing/0" class="button">
+            <button type="button" id="btVm" class="btn  btn-warning btn-lg">Cliente</button>
+          </a>
+          <% } %>
+
+            <% if(logado=="S" ){ %>
+              <a class="button" href="/logado/usuario/listing"><button type="button"
+                  class="btn btn-light btn-lg ">Usuário </button></a>
+              <% }else{ %>
+                <a class="button" href="/logado/usuario/1"><button type="button"
+                    class="btn btn-light btn-lg "> Usuário</button></a>
+                <% } %>
+                  <a class="button" href="/logado/request/listing/0"><button type="button"
+                      class="btn btn-light btn-lg ">Request</button></a>
+      </div>
+    </section>
+  </main>
+ 
+  <div id="modal-filter" class="modal-container">
+    <div class="modal1">
+      <div class="divModal">
+        <div>
+      <button class="fechar">x</button>
+      <h3 class="subtitulo">Buscar por cliente</h3>
+      <form action="/logado/vm/listing/" method="GET">
+        <div class="col-md-12">
+        <select name="cliente_id" id="appearance-select" class="form-control form-select">
+          <option value="" disabled selected>Selecionar cliente</option>
+          <% for( let cliente of clientes) { %>
+            <option value="<%= cliente.id %> ">
+              <%= cliente.nome %>
+            </option>
+            <% } %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-danger btn-sm">Buscar</button>
+       </form>
+    </div>
+  </div>
+
+    <div class="divModal">
+      <div>
+      <span><strong><h3>Criar VM</h3></strong></span>
+      <form action="/logado/vm/criar">
+        <input type="hidden" name="id_cliente_select" value="1">
+      <button type="submit" class="btn btn-outline-danger btn-sm"><img src="/images/icons/icon-create-vm.svg" alt="Create icon"></button>
+      </form>
+    </div>
+  </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function iniciaModal(modalID) {
+      const modal = document.getElementById(modalID);
+      if (modal) {
+        modal.classList.add('mostrar')
+        modal.addEventListener('click', (e) => {
+          if (e.target.id == modalID || e.target.className == 'fechar') {
+            modal.classList.remove('mostrar')
+          }
+        });
+      }
+    }
+
+    const vm = document.getElementById('btVm')
+    console.log(vm);
+    vm.addEventListener('click', () => iniciaModal('modal-filter'))
+  </script>
+
+</body>
+
+</html>

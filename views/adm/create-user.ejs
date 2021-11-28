@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AvaSchedule</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/signin.css">
+</head>
+
+<nav class="navbar navbar-inverse bg-light">
+  <div class="container">
+    <span class="ava">AvaSchedule</span>
+      <img src="/images/novo.iix" alt="" width="160" height="44">
+  </div>
+</nav>
+<div style="margin-left: 40px; margin-bottom: 40px;">
+  <a href="/logado/usuario/listing/" class="btn btn-outline-danger btn-sm">
+    <img src="/images/icons/voltar.svg" alt="voltar" width="40" height="44">
+  </a>
+  <a href="/logado/selecionar" class="btn btn-outline-danger btn-sm">
+    <img src="/images/icons/home.svg" alt="home" width="40" height="44">
+  </a>
+</div>
+<body class="cinza">
+  <main>
+    <section class="container flex-center">
+      <h1>Registrar usuário</h1>
+      <form class="row g-3" action="/logado/usuario/criar" method="POST">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">E-mail</label>
+          <input type="email" name="email" class="form-control" id="inputEmail">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" name="senha" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Nome completo</label>
+          <input type="text" class="form-control" name="nome" id="inputAddress" placeholder="">
+        </div>
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">Função</label>
+          <select name="adm" id="inputState" class="form-select">
+            <option value="" disabled selected>ADM / Analista </option>
+            <option value="S">ADM</option>
+            <option value="N">Analista</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja criar esse registro ?')">Registrar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+.teste{
+  
+  padding-top: 1rem;
+  padding-bottom: 0rem;
+}
+
+.borda{
+  /* border-width: 6px;
+  border-style: dashed;
+  border-color: #f00; */
+  padding: 0rem;
+  margin: 0rem;
+  height: 8rem;
+  width: 100rem;
+  
+}
+
+.btn-delete{
+  margin-bottom: 3rem;
+}
+
+.ava{
+  font-family:  sans-serif;
+  color: white;
+  font-weight: 600;
+  font-variant:small-caps;
+  font-size:30px;
+  font-style: italic;
+  font: italic bold 30px arial, sans-serif;
+}
+
+.text-center {
+  height: 100%;
+}
+
+.test{
+  width: 400px;
+   height:400px;
+}
+@media (max-width: 768px){
+  .test{
+    margin-top: 70px;
+    width: 100px;
+     height:100px;
+}
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.navbar-inverse {
+  margin-bottom: 2rem;
+    background-color: red;
+    background-image: linear-gradient(
+-90deg
+, #e8430f, #92085b);
+}
+
+
+.listing{
+ 
+    align-items: center;
+    justify-content: center;
+    margin-top: 3.5rem;
+}
+
+.cinza{
+  background-color: #f1efe7;
+}
+
+.btn2{
+  height: 3.8rem;
+}
+
+.btn1{
+  width: 22rem;
+}
+ /* campos de editar e cadastrar vm */
+.tho{
+ width: 120px;
+}
+
+.sbd{
+  width: 210px;
+}
+
+.env{
+  width: 230px;
+}
+
+.check{
+ padding-left: 20px;
+}
+.sbd1{
+  width: 150px;
+}
+
+.modal-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container.mostrar {
+  display: flex;
+}
+
+.modal1 {
+  background: #f1efe7;
+  width: 60%;
+  min-width: 300px;
+  padding: 10px;
+  border: 10px solid #988b7a;
+  box-shadow: 0 0 0 10px white;
+  position: relative;
+  padding-bottom: 30px;
+}
+
+@keyframes modal1 {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -60px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.mostrar .model1 {
+  animation: modal1 .3s;
+}
+
+.fechar {
+  position: absolute;
+  font-size: 1.2em;
+  top: -30px;
+  right: -30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid white;
+  background: #988b7a;
+  color: white;
+  font-family: "PT Mono", monospace;
+  cursor: pointer;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .3);
+}
+
+.divModal{
+  padding: 0px;
+ margin-top: 0px;
+  width: 49%;
+     height: 100px;
+     display: inline-flex;
+     padding-left: 10px;
+     padding-right: 10px;
+}
+
+
+
+
+
