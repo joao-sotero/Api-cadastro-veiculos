@@ -34,7 +34,7 @@ const VmController = {
     findById: async (req, res) => {
         const { id } = req.params
         let veiculos = await Veiculo.findAll({ where: { id } })
-console.log("to aq");
+
         return res.json(veiculos)
     },
     findByBody: async (req, res) => {
@@ -48,6 +48,19 @@ console.log("to aq");
 
         Veiculo.destroy({ where: { id } })
         return res.json({ message: "Veiculo apagado" })
-    }
+    },
+    veiculosNVendidos: async (req, res) => {
+       const veiculosNVendidos = await Veiculo.findAll({
+           where: {vendido:"false"}
+       })
+    return res.json(veiculosNVendidos)
+    },
+    veiculosPorFabricante: async (req, res) => {
+        const {marca_id} = req.body
+        const veiculossPorFabricante = await Veiculo.findAll({
+            where: {marca_id}
+        })
+     return res.json(veiculossPorFabricante)
+     }
 }
 module.exports = VmController;

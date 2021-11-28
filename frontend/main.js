@@ -61,4 +61,4 @@ function getByIdVeiculos(){
     })
     .catch(error => console.log(error))
 }
-getByIdVeiculos()
+// getByIdVeiculos()

@@ -19,15 +19,15 @@
     <h3>Cadastro de Veiculo</h3>
     <div class="col-md-2">
       <label for="inputEmail4" class="form-label">Veiculo</label>
-      <input type="text" name="veiculo" class="form-control" >
+      <input type="text" name="veiculo" class="form-control">
     </div>
     <div class="col-md-2">
       <label for="inputPassword4" class="form-label">Descrição</label>
-      <input type="text" name="descricao" class="form-control" >
+      <input type="text" name="descricao" class="form-control">
     </div>
     <div class="col-2">
       <label for="inputAddress" class="form-label">Ano</label>
-      <input type="number" name="ano" class="form-control" >
+      <input type="number" name="ano" class="form-control">
     </div>
     <div class="col-md-2">
       <label for="inputState" class="form-label">Marca</label>
@@ -85,14 +85,96 @@
       <button type="submit" class="btn btn-warning">Atualizar</button>
     </div>
   </form>
-
-  <form action="" method="POST" >
+  <!-- EXCLUIR -->
+  <form action="" method="POST">
     <div class="col-md-2 " style="padding-left: 30px;">
       <button type="submit" class="btn btn-danger">Excluir</button>
     </div>
   </form>
-
-
+  <br>
+  <br>
+  
+  <br>
+  <!-- MOSTRA VEICULOS -->
+  <h3>Apresentação dos veiculos</h3>
+  <table class="table">
+   
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Veiculo</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Ano</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Vendido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+      </tr>
+    </tbody>
+  </table>
+<BR></BR></BR>
+  <!-- QUANTIDADE DE CARROS N VENDIDOS -->
+  
+  <div class="container overflow-hidden">
+   
+    <div class="row gx-5">
+      <div class="col">
+       <div class="p-4 border bg-light">
+        <h3>Quantidade de carros não vendidos = </h3> <h3 id="quantidade"></h3>
+       </div>
+      </div>
+    </div>
+  </div>
 </body>
+<BR></BR></BR>
+<script>
+
+  async function getContent() {
+    try {
+      const response = await fetch('http://localhost:3001/veiculos')
+      // console.log(response);
+      const data = await response.json()
+      show(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  getContent()
+
+  function show(veiculos) {
+    let output = ''
+    for (let veiculo of veiculos) {
+      output += `<tr><th>${veiculo.id}</td> 
+            <td>${veiculo.veiculo}</td>
+             <td>${veiculo.descricao}</td> 
+             <td>${veiculo.ano}</td>
+          <td>${veiculo.marca_id}</td> 
+          <td>${veiculo.vendido}</td> </tr>`
+         
+    }
+    document.querySelector('tbody').innerHTML = output
+  }
+
+  async function getContentNVendidos() {
+    try {
+      const response = await fetch('http://localhost:3001/veiculos/estoque')
+      // console.log(response);
+      const data = await response.json()
+      showNVendidos(data)
+    } catch (error) {
+      console.log("ERROU");
+    }
+  }
+  getContentNVendidos()
+
+  function showNVendidos(veiculos) {
+    const data = veiculos.length
+quantidade.textContent = JSON.stringify(data)
+  }
+
+</script>
 
 </html>
