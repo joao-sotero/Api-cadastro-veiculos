@@ -35,7 +35,9 @@ O projeto tem por finalidade ser um web service para gerir veiculos, onde pode s
 
  Banco de Dados composto por tuas tabelas: veiculos e marcas, onde veiculos tem uma foreign key de marcas evitando que exista divergencia na escrita do nome da marca. O campo vendido na Tabela "veiculo" é um campo "varchar" onde a aplicação criarar a informação String "TRUE" ou "FALSE".
 
- Tela para consumo da API ainda em desenvolvimento.
+ Consumo da API feita em NODE e EJS, foi desenvoldida uma tela simples onde é possivel executas todos os endpoints da api(post, put, get, delete) e mais algumas funções como: filtrar pelo nome do veiculo, quantidade de veiculos ainda com status, "não vendido", quantidade de veiculos por década de fabricação e quantidade de veiculos por marca.
+
+
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -58,7 +60,7 @@ Visual Studio Code
 Clonar o Repositorio do GitHub
 ```
 ### Installing
-Após fazer as instalação as necessarias e clonar o repositorio para sua maquina é necessario executar esses comando no terminal dentro da pasta do projeto
+Após fazer as instalação as necessarias e clonar o repositorio para sua maquina é necessario executar os comandos abaixo no terminal dentro da pasta "backend" e "frontend" para que assim o serviços da API e do frontend sejá iniciado.
 
 Configuar a String de conexão com o banco de dados no arquivo config.js na pasta "backend/config"
 Criar o banco de dados com o SCRIPT da pasta backend/SCRIPT DB
@@ -76,30 +78,22 @@ npm start
 Apos inicar o projeto é so entrar no navegador e inserir a seguinte URL 
 
 ```
-http://localhost:3001/veiculos 
+http://localhost:3000/veiculos 
 ```
 Retorna todos os veiculos cadastrados (Se existir algum)
 
 ## 🎈 Usage <a name="usage"></a>
 
-A aplicação contém 8 rotas que retornam JSON
+Rotas da API
 
 
 Metodo GET - Retorna todos os veiculos cadastrados:
 ```
-http://localhost:3001/veiculos 
+http://localhost:3000/veiculos 
 ```
-Metodo GET - Retorna Todos os veiculos que tenhão o nome igual ao passado na variavel de pesquisa pelo corpo da requisição com nome "veiculo"
+Metodo GET - Retorna Todos os veiculos que tenham o nome igual ao passado na variavel de pesquisa pelo corpo da requisição com nome "veiculo"
 ```
-http://localhost:3001/veiculos 
-```
-Metodo GET - Retorna a quantidade de veiculos não vendidos
-```
-http://localhost:3001/veiculos/estoque 
-```
-Metodo GET - Retorna todos dos veiculos de um fabricante passado na variavel de pesquisa pelo corpo da requisição com nome "marca_id"
-```
-http://localhost:3001/veiculos/fabricante 
+http://localhost:3001/veiculos /find
 ```
 Metodo GET - Retorna o veiculo que contém o id que foi passado no parametro
 ```
@@ -117,6 +111,26 @@ Metodo DELETE - Deleta o veiculo que contém o id passado no paramentro
 ```
 http://localhost:3001/veiculos/deletar/id 
 ```
+<br>
+Rotas do Front-End:
+<br>
+<br>
+
+Metodo Get - Trás: todos os veiculos e faz filtro por nome, quantidade de veiculos não vendidos, listagem de veiculos por década e listagem de veiculos por marca, criar veiculo e atualizar veiculo 
+```
+http://localhost:3000/veiculos ou http://localhost:3000/veiculos
+```
+Metodo Delete - Deleta o veiculo correspondete ao id parassado no parametro
+```
+http://localhost:3000/veiculos/:id ou http://localhost:3000/veiculos/:id
+```
+Metodo Post - Cria um veiculo com informações passada no corpo da requisição
+```
+http://localhost:3000/veiculos/:id ou http://localhost:3000/veiculos/:id
+```
+Metodo PUT - Atualiza o veiculo correspondete ao id passado no parametro com informação passadas no corpo da requisição
+```
+http://localhost:3000/veiculos/:id ou http://localhost:3000/veiculos/:id
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
