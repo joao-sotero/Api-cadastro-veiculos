@@ -5,9 +5,7 @@ const { Op } = require('sequelize')
 const VmController = {
     //criar um novo veiculo
     post: async (req, res) => {
-
         const { veiculo, marca_id, ano, descricao, vendido } = req.body
-
         await Veiculo.create({
             veiculo, marca_id, ano, descricao, vendido
         })
@@ -16,9 +14,8 @@ const VmController = {
     //altera um veiculo
     put: async (req, res) => {
         const { id } = req.params
-        const { veiculo, marca_id, ano, descricao, vendido } = req.body
-        console.log(veiculo, marca_id, ano, descricao, vendido, id);
-
+        let { veiculo, marca_id, ano, descricao, vendido } = req.body
+        
         var dataCompleta = new Date();
 
         await Veiculo.update({
@@ -35,12 +32,17 @@ const VmController = {
                model: Marca, as:"marca"
            }] 
         })
-        return res.json(veiculos)
+        let marcas = await Marca.findAll({})
+        return res.json({veiculos, marcas})
     },
     //buscar veiculo por id
     findById: async (req, res) => {
         const { id } = req.params
-        let veiculos = await Veiculo.findAll({ where: { id } })
+        let veiculos = await Veiculo.findAll({ where: { id },
+            include:[{
+                model: Marca, as:"marca"
+            }] 
+         })
 
         return res.json(veiculos)
     },
@@ -58,21 +60,5 @@ const VmController = {
         Veiculo.destroy({ where: { id } })
         return res.json({ message: "Veiculo apagado" })
     },
-    //Retorna a quantidade e veiculos não vendidos
-    veiculosNVendidos: async (req, res) => {
-       const veiculosNVendidos = await Veiculo.findAll({
-           where: {vendido:"false"}
-       })
-      const quantidade = veiculosNVendidos.length
-    return res.json(quantidade)
-    },
-    //retorna os veiculos de um determinado fabricante
-    veiculosPorFabricante: async (req, res) => {
-        const {marca_id} = req.body
-        const veiculossPorFabricante = await Veiculo.findAll({
-            where: {marca_id}
-        })
-     return res.json(veiculossPorFabricante)
-     }
 }
 module.exports = VmController;
