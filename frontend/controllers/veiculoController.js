@@ -72,13 +72,6 @@ const VmController = {
         const {id} = req.params
         await axios.delete("http://localhost:3001/veiculos/"+id)
         return res.redirect('/')
-    },
-  
-    //retorna os veiculos de um determinado fabricante
-    veiculosPorFabricante: async (req, res) => {
-
-       
-     return res.json(veiculossPorFabricante)
-     }
+    }
 }
 module.exports = VmController;

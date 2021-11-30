@@ -121,6 +121,7 @@ Metodo Get - Trás: todos os veiculos e faz filtro por nome, quantidade de veicu
 http://localhost:3000/veiculos ou http://localhost:3000/veiculos
 ```
 Metodo Delete - Deleta o veiculo correspondete ao id parassado no parametro
+Para executar o Delete no front é necessario clicar duas vezes no icone de lixeira correspondente ao veiculo que se deseja excluir
 ```
 http://localhost:3000/veiculos/:id ou http://localhost:3000/veiculos/:id
 ```
